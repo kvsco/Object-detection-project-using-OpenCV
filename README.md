@@ -1,1 +1,1 @@
-# kfq_ai_2021
+# 한국품질재단 인공지능 1조 project - ACTO
