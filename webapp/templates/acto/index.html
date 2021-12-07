@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>ACTO - main</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+					{% include 'header.html'%}
+				<!-- Header end -->
+				<!-- Menu -->
+			    	{% include 'menu.html' %}
+				<!-- Menu end -->
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<h1>This is ACTO platform
+								<br>You can prevent cov-19 with Anti-Covid-Total-One<br />
+								</h1>
+							</header>
+							<section class="tiles">
+								<article class="style3">
+									<span class="image">
+										<img src="/static/images/mask1.jpg" alt="" />
+									</span>
+									<a href="mask/">
+										<h2>Mask</h2>
+										<div class="content">
+											<p>You can detection Whether to wear a Mask  </p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style2">
+									<span class="image">
+										<img src="/static/images/hand1.jpg" alt="" />
+									</span>
+									<a href="wash/">
+										<h2>Hand wash</h2>
+										<div class="content">
+											<p>You can check 4 steps to hand washing </p>
+										</div>
+									</a>
+								</article>
+								
+								<article class="style4">
+									<span class="image">
+										<img src="/static/images/table1.png" alt="" />
+									</span>
+									<a href="table/">
+										<h2>Table </h2>
+										<div class="content">
+											<p>You can detection table number of people </p>
+										</div>
+									</a>
+								</article>
+								
+							</section>
+							<br><br>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Index</th>
+													<th>Title</th>
+													<th>Time</th>
+												</tr>
+											</thead>
+											{% if news_list %}
+											{% for i in news_list %}
+												<tbody>
+													<tr>
+														<td>{{i.index}} </td>
+														<td><a target="_blank" href="{{ i.link }}"> {{ i.title }} </a></td>
+														<td>{{i.time}} </td>
+													</tr>
+												</tbody>
+											{% endfor %}
+											{% else %}
+												<h1>크롤링실패.</h1>
+											{% endif %}
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td></td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+									
+								
+						</div>
+					</div>
+
+				
+				<!-- Main end -->
+				<!-- Footer -->
+					{% include 'footer.html'%}
+				<!-- Footer end -->
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>

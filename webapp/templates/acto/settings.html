@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<html>
+	<head>
+		<title>settings</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+	</head>
+	<style>
+	.imgdiv{
+		display : flex;
+		justify-content : space-between;
+	}
+	</style>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					{% include 'header.html'%}
+				<!-- header end -->
+				<!-- Menu -->
+					{% include 'menu.html'%}	
+				<!-- Menu end -->
+				<!-- Main -->
+					<div id="main">
+						<div class="inner ">
+							<h1>settings Page</h1>
+							
+							<div class="align-center"><img src="/static/images/cov-step.png" width="70%" alt="" /></div>
+							<br>
+							{% if cov_step %}
+								<h3>[현재 모임 제한 인원 수 : {{cov_step}} 명]</h3>
+							{% else %}
+								<h3>[현재 모임 제한 인원 수 : _ 명]</h3>
+							{% endif %}
+							<div class="row">
+								<form method='post' action="/acto/settings/">
+									{% csrf_token %}
+									<li><button href="#" class="button fit" name="step" value="999">거리두기 1단계 적용</button></li>
+								</form>
+								<form method='post' action="/acto/settings/">
+									{% csrf_token %}
+									<li><button href="#" class="button fit" name="step" value="8">거리두기 2단계 적용</button></li>
+								</form>
+								<form method='post' action="/acto/settings/">
+									{% csrf_token %}
+									<li><button href="#" class="button fit" name="step" value="4">거리두기 3단계 적용</button></li>
+								</form>
+								<form method='post' action="/acto/settings/">
+									{% csrf_token %}
+									<li><button href="#" class="button fit" name="step" value="2">거리두기 4단계 적용</button></li>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					{% include 'footer.html'%}
+				<!-- Footer end -->
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>

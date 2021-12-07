@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<style>
+        /* UI Object 가로 */
+        .h_graph ul{margin:0 50px 0 50px;padding:1px 0 0 0;border:1px solid #ddd;border-top:0;border-right:0;font-size:11px;font-family:Tahoma, Geneva, sans-serif;list-style:none}
+        .h_graph li{position:relative;margin:10px 0;vertical-align:top;white-space:nowrap}
+        .h_graph .g_term{position:absolute;top:0;left:-50px;width:40px;font-weight:bold;color:#767676;line-height:20px;text-align:right}
+        .h_graph .g_bar{display:inline-block;position:relative;height:20px;border:1px solid #ccc;border-left:0;background:#e9e9e9}
+        .h_graph .g_bar span{position:absolute;top:0;right:-50px;width:40px;color:#767676;line-height:20px}
+        /* //UI Object */
+
+        /* UI Object 세로 */
+        .ratio{padding-top:20px}
+        .ratio li{float:left;position:relative;width:100px;height:300px;margin-right:10px;list-style:none}
+        .ratio div{position:absolute;left:0;bottom:0;width:100%;background:url(img/bg_gage2.gif) repeat;font-size:0}
+        .ratio em{position:absolute;top:-20px;width:100%;font-size:12px;font-weight:bold;text-align:center}
+        /* //UI Object */
+
+
+		/*---------------------------------table----------------*/
+		table.type09 {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+
+}
+table.type09 thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+table.type09 tbody th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+table.type09 td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+.event_date{
+	font-size: 17px
+	
+}
+    </style>
+    <!-- google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<html>
+	<head>
+		<title>wh</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					{% include 'header.html'%}
+				<!-- header end -->
+				<!-- Menu -->
+					{% include 'menu.html'%}	
+				<!-- Menu end -->
+				<!-- Main -->
+					<div id="main">
+            
+						<div class="inner" style="margin-bottom: 3vh">
+							<div id="columnchart_material" style="width: 100%; height: 500px;">
+							</div>
+			<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      
+      //-----------------------7일치 데이터 -----------------------------
+      
+      var today_str =String({{today_str}})
+      var before1_str = String({{before1_str}})
+      var before2_str = String({{before2_str}})
+      var before3_str = String({{before3_str}})
+      var before4_str = String({{before4_str}})
+      var before5_str = String({{before5_str}})
+      var before6_str = String({{before6_str}})
+      
+      
+
+
+
+      console.log(typeof before1_str)
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['날짜', 'STEP1', 'STEP2', 'STEP3', 'STEP4'],
+          [today_str, {{today_avg_step1}},{{today_avg_step2}},{{today_avg_step3}},{{today_avg_step4}}],
+          [before1_str, {{before1_avg_step1}}, {{before1_avg_step2}}, {{before1_avg_step3}}, {{before1_avg_step4}}],
+          [before2_str, {{before2_avg_step1}}, {{before2_avg_step2}}, {{before2_avg_step3}}, {{before2_avg_step4}}],
+          [before3_str, {{before3_avg_step1}}, {{before3_avg_step2}}, {{before3_avg_step3}}, {{before3_avg_step4}}],
+          [before4_str, {{before4_avg_step1}}, {{before4_avg_step2}}, {{before4_avg_step3}}, {{before4_avg_step4}}],
+          [before5_str, {{before5_avg_step1}}, {{before5_avg_step2}}, {{before5_avg_step3}}, {{before5_avg_step4}}],
+          [before6_str, {{before6_avg_step1}}, {{before6_avg_step2}}, {{before6_avg_step3}}, {{before6_avg_step4}}],
+
+        ]);
+        
+        var options = {
+          chart: {
+            title: '최근 일주일 손 씻기 평균(초)',
+            subtitle: `${before6_str} ~ ${today_str}`,
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+							<h1>wash_history Page</h1>
+							<p>손을 닦은 총 인원 수 : {{total_count}}</p>
+							<div class="h_graph">
+        						<ul>
+            					<li><span class="g_term">1단계</span><span class="g_bar" id="avgstep1" style="width:20%"><span>{{avg_step1}}초</span></span></li>
+									    <li><span class="g_term">2단계</span><span class="g_bar" id="avgstep2" style="width:20%"><span>{{avg_step2}}초</span></span></li>
+            					<li><span class="g_term">3단계</span><span class="g_bar" id="avgstep3" style="width:30%"><span>{{avg_step3}}초</span></span></li>
+            					<li><span class="g_term">4단계</span><span class="g_bar" id="avgstep4" style="width:100%"><span>{{avg_step4}}초</span></span></li>
+									<script>
+										var step1_width = {{avg_step1}}*10;
+										var step2_width = {{avg_step2}}*10;
+										var step3_width = {{avg_step3}}*10;``
+										var step4_width = {{avg_step4}}*10;
+
+										var step1 = document.getElementById("avgstep1");
+										var step2 = document.getElementById("avgstep2");
+										var step3 = document.getElementById("avgstep3");
+										var step4 = document.getElementById("avgstep4");
+
+										step1.style.width=`${step1_width}` + "%"
+										step2.style.width=`${step2_width}` + "%"
+										step3.style.width=`${step3_width}` + "%"
+										step4.style.width=`${step4_width}` + "%"
+										console.log(step1.style.width);
+										console.log(step2.style.width);
+										console.log(step3.style.width);
+										console.log(step4.style.width);
+									</script>
+								</ul>
+							</div>
+              
+							<table class="type09">
+                <thead>
+                <tr>
+                  <th scope="cols">세션 ID</th>
+                  <th scope="cols">날짜</th>
+                  <th scope="cols">손씻기 1단계</th>
+                  <th scope="cols">손씻기 2단계</th>
+                  <th scope="cols">손씻기 3단계</th>
+                  <th scope="cols">손씻기 4단계</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in wash %}
+                <tr>
+                  <th scope="row">{{i.session_id}}</th>
+                  <td class="event_date">{{i.event_date}}</td>
+                  <td>{{i.step_1}}초</td>
+                  <td>{{i.step_2}}초</td>
+                  <td>{{i.step_3}}초</td>
+                  <td>{{i.step_4}}초</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              
+						</div>
+					</div>
+				<!-- Footer -->
+					{% include 'footer.html'%}
+				<!-- Footer end -->
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+			
+	</body>
+</html>

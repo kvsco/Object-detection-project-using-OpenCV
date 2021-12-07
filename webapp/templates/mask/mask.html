@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>ACTO - mask</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					{% include 'header.html'%}
+				<!-- header end -->
+				<!-- Menu -->
+					{% include 'menu.html'%}
+				<!-- Menu end -->
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Mask Page</h1>
+								<iframe src="http://127.0.0.1:5000/stream?src=0" width="100%" height="500px">
+								</iframe>
+								
+								<script>
+									window.setTimeout(function () {
+										$(".alert-auto-dismissible")
+											.fadeTo(500, 0)
+											.slideUp(500, function () {
+												$(this).remove();
+											});
+									}, 2000);
+								</script>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					{% include 'footer.html'%}
+				<!-- Footer end -->
+			</div>
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>

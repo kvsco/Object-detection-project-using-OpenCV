@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>mh</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+		<style>
+			#pagination a {
+				display:inline-block;
+				margin-right:5px;
+				cursor:pointer;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					{% include 'header.html'%}
+				<!-- header end -->
+				<!-- Menu -->
+					{% include 'menu.html'%}	
+				<!-- Menu end -->
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>mask_history Page</h1>
+							<br>
+							<h1></h1>
+							<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+							<br><br>
+							<script>
+								var ctx = document.getElementById('myChart').getContext('2d'); 
+								var chart = new Chart(ctx, {
+									type: 'bar', // 
+									data: { 
+										labels: [{{b6_date}},{{b5_date}},{{b4_date}},{{b3_date}},{{b2_date}},{{b1_date}},"오늘"],
+										datasets: [
+											{ 
+												label: 'MASK On', 
+												backgroundColor: '#5a5afc',
+												borderColor: 'rgb(3, 215, 178)', 
+												data: [{{b6_t}},{{b5_t}},{{b4_t}},{{b3_t}},{{b2_t}},{{b1_t}},{{t_t}}]
+											},
+											{ 
+												label: 'MASK Off', 
+												backgroundColor: '#d75b5b', 
+												borderColor: 'rgb(255, 99, 0)', 
+												data: [{{b6_f}},{{b5_f}},{{b4_f}},{{b3_f}},{{b2_f}},{{b1_f}},{{t_f}}]
+											}
+										]
+									}, 
+								});
+
+							</script>
+							<div class="table-wrapper">
+								<table class="alt">
+									<thead>
+										<tr>
+											<th> index</th>
+											<th>시간</th>
+											<th>착용여부</th>
+										</tr>
+									</thead>
+									<tbody>
+									{% if mask %}
+										{% for i in mask %}
+										
+											{% if i.mask_detection == True %}
+											<tr>
+												<td>{{i.session_id}}</td>
+												<td>{{i.event_date}}</td>
+												<td>착용</td>
+											</tr>
+											{% else %}
+											<tr>
+												<td>{{i.session_id}}</td>
+												<td>{{i.event_date}}</td>
+												<td><a href="{{i.img_path}}" target="_blank">미착용</a></td>						
+											</tr>
+											{% endif %}
+										{% endfor %}
+									{% else %}
+										no data
+									{% endif %}
+									</tbody>
+								</table>
+								<ul class="pagination">
+    
+  								</ul>
+								<script>
+									function pagination(){
+									var req_num_row=15;
+									var $tr=jQuery('tbody tr');
+									var total_num_row=$tr.length;
+									var num_pages=0;
+									if(total_num_row % req_num_row ==0){
+										num_pages=total_num_row / req_num_row;
+									}
+									if(total_num_row % req_num_row >=1){
+										num_pages=total_num_row / req_num_row;
+										num_pages++;
+										num_pages=Math.floor(num_pages++);
+									}
+							
+									jQuery('.pagination').append("<li><a class=\"prev\">Previous</a></li>");
+							
+									for(var i=1; i<=num_pages; i++){
+										jQuery('.pagination').append("<li><a>"+i+"</a></li>");
+										jQuery('.pagination li:nth-child(2)').addClass("active");
+										jQuery('.pagination a').addClass("pagination-link");
+									}
+							
+									jQuery('.pagination').append("<li><a class=\"next\">Next</a></li>");
+							
+									$tr.each(function(i){
+										jQuery(this).hide();
+										if(i+1 <= req_num_row){
+											$tr.eq(i).show();
+										}
+									});
+							
+									jQuery('.pagination a').click('.pagination-link', function(e){
+										e.preventDefault();
+										$tr.hide();
+										var page=jQuery(this).text();
+										var temp=page-1;
+										var start=temp*req_num_row;
+										var current_link = temp;
+								
+										jQuery('.pagination li').removeClass("active");
+										jQuery(this).parent().addClass("active");
+								
+										for(var i=0; i< req_num_row; i++){
+											$tr.eq(start+i).show();
+										}
+								
+										if(temp >= 1){
+											jQuery('.pagination li:first-child').removeClass("disabled");
+										}
+										else {
+											jQuery('.pagination li:first-child').addClass("disabled");
+										}
+										
+									});
+							
+								}
+							
+								jQuery('document').ready(function(){
+									pagination();
+									jQuery('.pagination li:first-child').addClass("disabled");
+							
+								});
+								</script>
+							</div>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					{% include 'footer.html'%}
+				<!-- Footer end -->
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>
